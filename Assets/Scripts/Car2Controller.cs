@@ -14,6 +14,12 @@ public class Car2Controller : MonoBehaviour
     [SerializeField] private HingeJoint _rearLeftWheelHingeJoint;
     [SerializeField] private HingeJoint _rearRightWheelHingeJoint;
 
+    [Header("Wheel Rigidbody components")]
+    [SerializeField] private Rigidbody _frontLeftWheelRigidbody;
+    [SerializeField] private Rigidbody _frontRightWheelRigidbody;
+    [SerializeField] private Rigidbody _rearLeftWheelRigidbody;
+    [SerializeField] private Rigidbody _rearRightWheelRigidbody;
+
     [Header("Input System")]
     [SerializeField] private InputActionAsset _myInputSystem;
     private Vector2 _moveInput;
@@ -27,6 +33,7 @@ public class Car2Controller : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyEnginePower(_moveInput.y);
+        ApplySteeringDirection(_moveInput.x);
     }
 
     private void ApplyEnginePower(float accelerationInput)
@@ -35,6 +42,17 @@ public class Car2Controller : MonoBehaviour
         ApplyWheelMotor(accelerationInput, _frontRightWheelHingeJoint);
         ApplyWheelMotor(accelerationInput, _rearLeftWheelHingeJoint);
         ApplyWheelMotor(accelerationInput, _rearRightWheelHingeJoint);
+    }
+
+    private void ApplySteeringDirection(float steeringInput)
+    {
+        Vector3 steeringFrontDirection = new Vector3(0, steeringInput * 100, 0);
+        Vector3 steeringRearDirection = new Vector3(0, steeringInput * -100, 0);
+
+        _frontLeftWheelRigidbody.AddTorque(steeringFrontDirection, ForceMode.Force);
+        _frontRightWheelRigidbody.AddTorque(steeringFrontDirection, ForceMode.Force);
+        _frontLeftWheelRigidbody.AddTorque(steeringRearDirection, ForceMode.Force);
+        _frontRightWheelRigidbody.AddTorque(steeringRearDirection, ForceMode.Force);
     }
 
     private void ApplyWheelMotor(float accelerationInput, HingeJoint hingeJoint)

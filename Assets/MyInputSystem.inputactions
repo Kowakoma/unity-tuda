@@ -14,13 +14,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Steer",
+                    "type": "Value",
+                    "id": "af6dee06-3f33-4ad3-8dcd-fa531e58a382",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
-                    "id": "753f41a0-3af4-43ae-a597-2e36880a7377",
-                    "path": "2DVector",
+                    "name": "1D Axis",
+                    "id": "2bb28188-2bfc-49f5-89b8-04dbb831c066",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -29,19 +38,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
-                    "id": "59814787-f25c-48e3-bfa2-43d344fe78a3",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Down",
-                    "id": "5770ed1c-afbd-43da-be85-c8934c3139f4",
+                    "name": "negative",
+                    "id": "a375b527-85cf-46ed-8093-f4c227af3f3e",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -51,9 +49,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Left",
-                    "id": "64c1af36-ffb4-463c-985d-88d487f02c11",
-                    "path": "<Keyboard>/leftArrow",
+                    "name": "positive",
+                    "id": "7f27a9ba-7e99-40d6-ae6a-b46841382cfb",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -62,13 +60,35 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Right",
-                    "id": "e0abd28f-1c16-4898-a450-88528e3f1c09",
+                    "name": "1D Axis",
+                    "id": "04d61cf2-6e48-4f19-ae44-09b4c980bf5a",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c8b13b16-540b-4c70-a68a-42cf39849f8e",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "86b0fc3e-9752-4f7e-9fba-aa326686bbef",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
