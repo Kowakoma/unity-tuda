@@ -1,9 +1,10 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CarController : MonoBehaviour
 {
-    [Header("Physics")]
+      [Header("Car parameters")]
     public float maxSteerAngle;
     public float steeringForce;
     public float steeringPower;
