@@ -7,7 +7,7 @@ public class CarController : MonoBehaviour
     public float maxSteerAngle;
     public float steeringForce;
     public float steeringPower;
-    public float rotationForce;
+    public float wheelRotationForce;
     public float enginePower;
 
     [Header("Knuckle joints")]
@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour
     private void ApplyMovingHingeMotor(float accelerationInput, HingeJoint hingeJoint)
     {
         JointMotor motor = hingeJoint.motor;
-        motor.targetVelocity = accelerationInput * rotationForce;
+        motor.targetVelocity = accelerationInput * wheelRotationForce;
         motor.force = Mathf.Abs(accelerationInput) * enginePower;
 
         hingeJoint.motor = motor;
