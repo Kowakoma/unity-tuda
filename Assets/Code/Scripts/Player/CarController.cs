@@ -4,11 +4,10 @@ using UnityEngine.InputSystem;
 public class CarController : MonoBehaviour
 {
       [Header("Car parameters")]
-    public float maxSteerAngle;
-    public float steeringForce;
-    public float steeringPower;
-    public float engineForce;
-    public float enginePower;
+    public float steeringMotorSpeed;
+    public float steeringMotorForce;
+    public float movingMotorSpeed;
+    public float movingMotorForce;
 
     [Header("Knuckle joints")]
     [SerializeField] private HingeJoint _frontLeftKnuckleJoint;
@@ -36,7 +35,7 @@ public class CarController : MonoBehaviour
     public void OnSteer(InputAction.CallbackContext context)
     {
         _steerInput = context.ReadValue<float>();
-        Debug.Log("OnSteer called: " + _moveInput);
+        Debug.Log("OnSteer called: " + _steerInput);
     }
 
     void FixedUpdate()
@@ -55,8 +54,8 @@ public class CarController : MonoBehaviour
     private void ApplyMovingHingeMotor(float accelerationInput, HingeJoint hingeJoint)
     {
         JointMotor motor = hingeJoint.motor;
-        motor.targetVelocity = accelerationInput * engineForce;
-        motor.force = Mathf.Abs(accelerationInput) * enginePower;
+        motor.targetVelocity = accelerationInput * movingMotorSpeed;
+        motor.force = Mathf.Abs(accelerationInput) * movingMotorForce;
 
         hingeJoint.motor = motor;
         hingeJoint.useMotor = true;
@@ -71,8 +70,8 @@ public class CarController : MonoBehaviour
         }
 
         JointMotor motor = hingeJoint.motor;
-        motor.targetVelocity = steeringInput * steeringForce;
-        motor.force = Mathf.Abs(steeringInput) * steeringPower;
+        motor.targetVelocity = steeringInput * steeringMotorForce;
+        motor.force = Mathf.Abs(steeringInput) * steeringMotorForce;
 
         hingeJoint.motor = motor;
         hingeJoint.useMotor = true;
