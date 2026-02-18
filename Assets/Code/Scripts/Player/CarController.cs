@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 public class CarController : MonoBehaviour
 {
       [Header("Car parameters")]
-    public float steeringMotorSpeed;
-    public float steeringMotorForce;
-    public float movingMotorSpeed;
-    public float movingMotorForce;
+    public float steeringSpeed = 500f;
+    public float steeringForce = 250f;
+    public float movingSpeed = 500f;
+    public float movingForce = 400f;
 
     [Header("Knuckle joints")]
     [SerializeField] private HingeJoint _frontLeftKnuckleJoint;
@@ -54,8 +54,8 @@ public class CarController : MonoBehaviour
     private void ApplyMovingHingeMotor(float accelerationInput, HingeJoint hingeJoint)
     {
         JointMotor motor = hingeJoint.motor;
-        motor.targetVelocity = accelerationInput * movingMotorSpeed;
-        motor.force = Mathf.Abs(accelerationInput) * movingMotorForce;
+        motor.targetVelocity = accelerationInput * movingSpeed;
+        motor.force = Mathf.Abs(accelerationInput) * movingForce;
 
         hingeJoint.motor = motor;
         hingeJoint.useMotor = true;
@@ -70,8 +70,8 @@ public class CarController : MonoBehaviour
         }
 
         JointMotor motor = hingeJoint.motor;
-        motor.targetVelocity = steeringInput * steeringMotorForce;
-        motor.force = Mathf.Abs(steeringInput) * steeringMotorForce;
+        motor.targetVelocity = steeringInput * steeringSpeed;
+        motor.force = Mathf.Abs(steeringInput) * steeringForce;
 
         hingeJoint.motor = motor;
         hingeJoint.useMotor = true;

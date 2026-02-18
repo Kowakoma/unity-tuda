@@ -524,6 +524,14 @@ PrefabInstance:
       value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 813915644720516165, guid: 884b4c43650211a4b93567185107bd59, type: 3}
+      propertyPath: movingForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 813915644720516165, guid: 884b4c43650211a4b93567185107bd59, type: 3}
+      propertyPath: movingSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 813915644720516165, guid: 884b4c43650211a4b93567185107bd59, type: 3}
       propertyPath: maxSteerAngle
       value: 45
       objectReference: {fileID: 0}
@@ -540,8 +548,16 @@ PrefabInstance:
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 813915644720516165, guid: 884b4c43650211a4b93567185107bd59, type: 3}
+      propertyPath: steeringSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 813915644720516165, guid: 884b4c43650211a4b93567185107bd59, type: 3}
       propertyPath: wheelRotationForce
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 813915644720516165, guid: 884b4c43650211a4b93567185107bd59, type: 3}
+      propertyPath: _steeringWheels.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1791576936591807454, guid: 884b4c43650211a4b93567185107bd59, type: 3}
       propertyPath: m_LocalPosition.x
