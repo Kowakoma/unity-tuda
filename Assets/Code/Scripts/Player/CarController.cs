@@ -9,22 +9,19 @@ public class CarController : MonoBehaviour
     public float movingSpeed = 500f;
     public float movingForce = 400f;
 
-    [Header("Knuckle joints")]
-    [SerializeField] private HingeJoint _frontLeftKnuckleJoint;
-    [SerializeField] private HingeJoint _frontRightKnuckleJoint;
-    [SerializeField] private HingeJoint _rearLeftKnuckleJoint;
-    [SerializeField] private HingeJoint _rearRightKnuckleJoint;
-
-    [Header("Wheel joints")]
-    [SerializeField] private HingeJoint _frontLeftWheelJoint;
-    [SerializeField] private HingeJoint _frontRightWheelJoint;
-    [SerializeField] private HingeJoint _rearLeftWheelJoint;
-    [SerializeField] private HingeJoint _rearRightWheelJoint;
+    [SerializeField] private HingeJoint[] _wheelJoints;
+    [SerializeField] private HingeJoint[] _knuckleJoints;
 
     [Header("Input System")]
     [SerializeField] private InputActionAsset _myInputSystem;
+    [SerializeField] private float _steeringDeadZone = 0.01f;
     private float _moveInput;
     private float _steerInput;
+
+    void Awake()
+    {
+        ValidateReferences();
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -40,15 +37,15 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        ApplyMovingHingeMotor(_moveInput, _frontLeftWheelJoint);
-        ApplyMovingHingeMotor(_moveInput, _frontRightWheelJoint);
-        ApplyMovingHingeMotor(_moveInput, _rearLeftWheelJoint);
-        ApplyMovingHingeMotor(_moveInput, _rearRightWheelJoint);
+        foreach (var wheels in _wheelJoints)
+            ApplyMovingHingeMotor(_moveInput, wheels);
 
-        ApplySteeringHingeMotor(_steerInput, _frontLeftKnuckleJoint);
-        ApplySteeringHingeMotor(_steerInput, _frontRightKnuckleJoint);
-        ApplySteeringHingeMotor(-_steerInput, _rearLeftKnuckleJoint);
-        ApplySteeringHingeMotor(-_steerInput, _rearRightKnuckleJoint);
+        for (int i = 0; i < _knuckleJoints.Length; i++)
+        {
+            // Front wheels (first two) steer with input, rear wheels (last two) steer opposite
+            float steeringFactor = (i < 2) ? _steerInput : -_steerInput;
+            ApplySteeringHingeMotor(steeringFactor, _knuckleJoints[i]);
+        }
     }
 
     private void ApplyMovingHingeMotor(float accelerationInput, HingeJoint hingeJoint)
@@ -63,7 +60,7 @@ public class CarController : MonoBehaviour
 
     private void ApplySteeringHingeMotor(float steeringInput, HingeJoint hingeJoint)
     {
-        if (Mathf.Abs(steeringInput) < 0.01f)
+        if (Mathf.Abs(steeringInput) < _steeringDeadZone)
         {
             hingeJoint.useMotor = false;
             return;
@@ -75,5 +72,14 @@ public class CarController : MonoBehaviour
 
         hingeJoint.motor = motor;
         hingeJoint.useMotor = true;
+    }
+
+    private void ValidateReferences()
+    {
+        if (_wheelJoints == null || _wheelJoints.Length == 0)
+            Debug.LogError("Wheel joints not assigned!");
+
+        if (_knuckleJoints == null || _knuckleJoints.Length == 0)
+            Debug.LogError("Knuckle joints not assigned!");
     }
 }
